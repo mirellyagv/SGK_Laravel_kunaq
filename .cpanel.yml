@@ -1,0 +1,7 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home1/kunaqnet/mirror.kunaq.net.pe/public/
+    - /bin/rsync -av public/ $DEPLOYPATH
+    # - /bin/cp index.html $DEPLOYPATH
+    # - /bin/cp style.css $DEPLOYPATH

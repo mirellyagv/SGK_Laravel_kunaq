@@ -1,0 +1,29 @@
+
+/* Tamaño del scroll */
+.content::-webkit-scrollbar {
+    width: 12px;
+    height: 8px;
+}
+.content::-moz-scrollbar {
+    width: 12px;
+    height: 8px;
+}
+
+/* Estilos barra (thumb) de scroll */
+.content::-webkit-scrollbar-thumb {
+    background: #AA0000;
+    border-radius: 5px;
+}
+.content::-moz-scrollbar-thumb {
+    background: #AA0000;
+    border-radius: 5px;
+}
+
+.content::-webkit-scrollbar-thumb:active {
+    background-color: #AA0000;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+    background: #ec0707;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
