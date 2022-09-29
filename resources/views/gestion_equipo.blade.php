@@ -126,7 +126,7 @@
                                                 <td>{{ $e->nombres.' '.$e->apellidos }}</td>
                                                 <td class="text-center">{{ $e->cod_activo }}</td>
                                                 <td class="text-center">{{ $e->serie }}</td>
-                                                <td class="text-center">{{ Carbon\Carbon::parse($e->fch_compra)->format('d/m/Y') }}</td>
+                                                <td class="text-center">{{ Carbon\Carbon::parse($e->fch_compra)->format('d-m-Y') }}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -386,6 +386,7 @@
         .tarjeta{
             position: relative;
             margin-right: 15px;
+            margin-bottom: -3rem;
             height: 6rem;
         }
         .tarjeta > h3 {

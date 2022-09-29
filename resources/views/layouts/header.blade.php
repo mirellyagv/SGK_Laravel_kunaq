@@ -27,8 +27,7 @@
         <style>
             .btn-kunaq {
                 font-weight: 600;
-                background: #D5161E
-;
+                background: #D5161E;
                 border-radius: 10px;
                 margin-right: 5px;
             }
@@ -39,18 +38,15 @@
                 border-radius: 10px;
             }
             .uri-seg {
-                color: #D5161E
-;
+                color: #D5161E;
                 font-weight: 800;
             }
             .check-kunaq {
-                background: #D5161E
-;
+                background: #D5161E;
             }
             .table .thead-light th {
                 color: #fff;
-                background-color: #D5161E
-;
+                background-color: #D5161E;
                 border-color: #dee2e6;
             }
         </style>
