@@ -589,7 +589,7 @@
                     info: "Mostrando de _START_ a _END_ de _TOTAL_ elementos",
                     paginate: {
                         first: "Primero",
-                        previous: "Aterior",
+                        previous: "Anterior",
                         next: "Siguiente",
                         last: "Ultimo"
                     }
