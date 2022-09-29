@@ -55,12 +55,12 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="lista-equipos">
-                        <div class="row lista">
-                            <div class="col-lg-12">
+                         <div class="row lista">
+                            <div class="col-md-12 mt-3">
                                 <div class="card border">
-                                    <div class="card-header"><i class="uri-seg mdi mdi-format-page-break"></i> Filtros</div>
-                                    <div class="card-body">
-                                        <form id="FrmFiltro" method="post">
+                                    <div class="card-header"><i class="uri-seg mdi mdi-table"></i> Listado </div>
+                                    <div class="card-body table-responsive table_equipo">
+                                    <form id="FrmFiltro" method="post">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-md-3">
@@ -96,15 +96,7 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row lista">
-                            <div class="col-md-12 mt-3">
-                                <div class="card border">
-                                    <div class="card-header"><i class="uri-seg mdi mdi-table"></i> Listado </div>
-                                    <div class="card-body table-responsive table_equipo">
+                                    </br>
                                     <table id="table-Equipo" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
                                         <thead>
                                             <tr>
@@ -134,7 +126,7 @@
                                                 <td>{{ $e->nombres.' '.$e->apellidos }}</td>
                                                 <td class="text-center">{{ $e->cod_activo }}</td>
                                                 <td class="text-center">{{ $e->serie }}</td>
-                                                <td class="text-center">{{ $e->fch_compra }}</td>
+                                                <td class="text-center">{{ Carbon\Carbon::parse($e->fch_compra)->format('d-m-Y') }}</td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -151,67 +143,67 @@
                                     <div class="card-header"><h4 class="deta-titulo"></h4></div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Sucursal:</label>
                                                     <div class="form-control lmp-equipo" id="sucursal"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Ubicación:</label>
                                                     <div class="form-control lmp-equipo" id="ubicacion"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Estado:</label>
                                                     <div class="form-control lmp-equipo" id="estado"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Periférico:</label>
                                                     <div class="form-control lmp-equipo" id="periferico"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Marca:</label>
                                                     <div class="form-control lmp-equipo" id="marca"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Modelo:</label>
                                                     <div class="form-control lmp-equipo" id="modelo"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Código Inventario:</label>
                                                     <div class="form-control lmp-equipo" id="inventario"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Código Activo:</label>
                                                     <div class="form-control lmp-equipo" id="activo"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Serie:</label>
                                                     <div class="form-control lmp-equipo" id="serie"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Procesador:</label>
                                                     <div class="form-control lmp-equipo" id="procesador"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Velocidad:</label>
                                                     <div class="input-group">
@@ -222,7 +214,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Memoria:</label>
                                                     <div class="input-group">
@@ -233,7 +225,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Disco Duro:</label>
                                                     <div class="input-group">
@@ -244,61 +236,61 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Tamaño:</label>
                                                     <div class="form-control lmp-equipo" id="tamanio"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Fecha Compra:</label>
                                                     <div class="form-control lmp-equipo" id="fecha_compra"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Fecha Instalación:</label>
                                                     <div class="form-control lmp-equipo" id="fecha_instalacion"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Tipo Propiedad:</label>
                                                     <div class="form-control lmp-equipo" id="tipo_propiedad"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Proveedor:</label>
                                                     <div class="form-control lmp-equipo" id="proveedor"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Contrato:</label>
                                                     <div class="form-control lmp-equipo" id="contrato"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Vcmto. Contrato:</label>
                                                     <div class="form-control lmp-equipo" id="vcmto_contrato"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Cuota</label>
                                                     <div class="form-control lmp-equipo" id="cuota"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Costo Equipo</label>
                                                     <div class="form-control lmp-equipo" id="costo_equipo"></div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Código Equipo</label>
                                                     <div class="form-control" id="cod_equipo"></div>
@@ -394,7 +386,8 @@
         .tarjeta{
             position: relative;
             margin-right: 15px;
-            height: 100px;
+            margin-bottom: -3rem;
+            height: 6rem;
         }
         .tarjeta > h3 {
             position: absolute;
@@ -589,7 +582,7 @@
                     info: "Mostrando de _START_ a _END_ de _TOTAL_ elementos",
                     paginate: {
                         first: "Primero",
-                        previous: "Aterior",
+                        previous: "Anterior",
                         next: "Siguiente",
                         last: "Ultimo"
                     }

@@ -27,7 +27,7 @@
         <style>
             .btn-kunaq {
                 font-weight: 600;
-                background: #AA0000;
+                background: #D5161E;
                 border-radius: 10px;
                 margin-right: 5px;
             }
@@ -38,15 +38,15 @@
                 border-radius: 10px;
             }
             .uri-seg {
-                color: #AA0000;
+                color: #D5161E;
                 font-weight: 800;
             }
             .check-kunaq {
-                background: #AA0000;
+                background: #D5161E;
             }
             .table .thead-light th {
                 color: #fff;
-                background-color: #AA0000;
+                background-color: #D5161E;
                 border-color: #dee2e6;
             }
         </style>
@@ -91,8 +91,8 @@
 
                             <!-- item-->
                             <a href="{{ url('logout') }}" class="dropdown-item notify-item">
-                                <i class="fe-log-out" style="color: #AA0000;"></i>
-                                <span style="color: #AA0000;"><b>Salir</b></span>
+                                <i class="fe-log-out" style="color: #D5161E;"></i>
+                                <span style="color: #D5161E;"><b>Salir</b></span>
                             </a>
 
                         </div>
@@ -103,12 +103,12 @@
                 <div class="logo-box">
                     <a href="javascript:void(0)" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="{{ asset('image/Logo_KQ_web.png') }}" height="70">
+                            <img src="{{ asset('image/Logo_KQ_web.png') }}" height="110rem">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm">
                             <!-- <span class="logo-sm-text-dark">U</span> -->
-                            <img src="{{ asset('image/Logo_KQ_web.png') }}" alt="" height="28">
+                            <img src="{{ asset('image/Logo_KQ_web.png') }}" alt="" height="35rem">
                         </span>
                     </a>
                 </div>
@@ -232,7 +232,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-12">
-                            © 2021 | Todos los derechos reservados | Kunaq & Asociados S.A.C
+                            © 2022 | Todos los derechos reservados | Kunaq & Asociados S.A.C
                             </div>
                         </div>
                     </div>
