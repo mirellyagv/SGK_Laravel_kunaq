@@ -107,12 +107,12 @@
                 <div class="logo-box">
                     <a href="javascript:void(0)" class="logo text-center">
                         <span class="logo-lg">
-                            <img src="{{ asset('image/Logo_KQ_web.png') }}" height="70">
+                            <img src="{{ asset('image/Logo_KQ_web.png') }}" height="110rem">
                             <!-- <span class="logo-lg-text-light">UBold</span> -->
                         </span>
                         <span class="logo-sm">
                             <!-- <span class="logo-sm-text-dark">U</span> -->
-                            <img src="{{ asset('image/Logo_KQ_web.png') }}" alt="" height="28">
+                            <img src="{{ asset('image/Logo_KQ_web.png') }}" alt="" height="35rem">
                         </span>
                     </a>
                 </div>
