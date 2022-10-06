@@ -3,6 +3,7 @@
 namespace Illuminate\Http\Client;
 
 use ArrayAccess;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Traits\Macroable;
 use LogicException;
 
@@ -25,6 +26,20 @@ class Response implements ArrayAccess
      * @var array
      */
     protected $decoded;
+
+    /**
+     * The request cookies.
+     *
+     * @var \GuzzleHttp\Cookie\CookieJar
+     */
+    public $cookies;
+
+    /**
+     * The transfer stats for the request.
+     *
+     * \GuzzleHttp\TransferStats|null
+     */
+    public $transferStats;
 
     /**
      * Create a new response instance.
@@ -70,11 +85,22 @@ class Response implements ArrayAccess
     /**
      * Get the JSON decoded body of the response as an object.
      *
-     * @return object
+     * @return object|array
      */
     public function object()
     {
         return json_decode($this->body(), false);
+    }
+
+    /**
+     * Get the JSON decoded body of the response as a collection.
+     *
+     * @param  string|null  $key
+     * @return \Illuminate\Support\Collection
+     */
+    public function collect($key = null)
+    {
+        return Collection::make($this->json($key));
     }
 
     /**
@@ -95,9 +121,7 @@ class Response implements ArrayAccess
      */
     public function headers()
     {
-        return collect($this->response->getHeaders())->mapWithKeys(function ($v, $k) {
-            return [$k => $v];
-        })->all();
+        return $this->response->getHeaders();
     }
 
     /**
@@ -111,13 +135,23 @@ class Response implements ArrayAccess
     }
 
     /**
+     * Get the reason phrase of the response.
+     *
+     * @return string
+     */
+    public function reason()
+    {
+        return $this->response->getReasonPhrase();
+    }
+
+    /**
      * Get the effective URI of the response.
      *
-     * @return \Psr\Http\Message\UriInterface
+     * @return \Psr\Http\Message\UriInterface|null
      */
     public function effectiveUri()
     {
-        return $this->transferStats->getEffectiveUri();
+        return $this->transferStats?->getEffectiveUri();
     }
 
     /**
@@ -148,6 +182,26 @@ class Response implements ArrayAccess
     public function redirect()
     {
         return $this->status() >= 300 && $this->status() < 400;
+    }
+
+    /**
+     * Determine if the response was a 401 "Unauthorized" response.
+     *
+     * @return bool
+     */
+    public function unauthorized()
+    {
+        return $this->status() === 401;
+    }
+
+    /**
+     * Determine if the response was a 403 "Forbidden" response.
+     *
+     * @return bool
+     */
+    public function forbidden()
+    {
+        return $this->status() === 403;
     }
 
     /**
@@ -183,7 +237,7 @@ class Response implements ArrayAccess
     /**
      * Execute the given callback if there was a server or client error.
      *
-     * @param  \Closure|callable $callback
+     * @param  callable  $callback
      * @return $this
      */
     public function onError(callable $callback)
@@ -212,7 +266,19 @@ class Response implements ArrayAccess
      */
     public function handlerStats()
     {
-        return $this->transferStats->getHandlerStats();
+        return $this->transferStats?->getHandlerStats() ?? [];
+    }
+
+    /**
+     * Close the stream and any underlying resources.
+     *
+     * @return $this
+     */
+    public function close()
+    {
+        $this->response->getBody()->close();
+
+        return $this;
     }
 
     /**
@@ -223,6 +289,18 @@ class Response implements ArrayAccess
     public function toPsrResponse()
     {
         return $this->response;
+    }
+
+    /**
+     * Create an exception if a server or client error occurred.
+     *
+     * @return \Illuminate\Http\Client\RequestException|null
+     */
+    public function toException()
+    {
+        if ($this->failed()) {
+            return new RequestException($this);
+        }
     }
 
     /**
@@ -238,7 +316,7 @@ class Response implements ArrayAccess
         $callback = func_get_args()[0] ?? null;
 
         if ($this->failed()) {
-            throw tap(new RequestException($this), function ($exception) use ($callback) {
+            throw tap($this->toException(), function ($exception) use ($callback) {
                 if ($callback && is_callable($callback)) {
                     $callback($this, $exception);
                 }
@@ -249,12 +327,25 @@ class Response implements ArrayAccess
     }
 
     /**
+     * Throw an exception if a server or client error occurred and the given condition evaluates to true.
+     *
+     * @param  bool  $condition
+     * @return $this
+     *
+     * @throws \Illuminate\Http\Client\RequestException
+     */
+    public function throwIf($condition)
+    {
+        return $condition ? $this->throw() : $this;
+    }
+
+    /**
      * Determine if the given offset exists.
      *
      * @param  string  $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->json()[$offset]);
     }
@@ -265,7 +356,7 @@ class Response implements ArrayAccess
      * @param  string  $offset
      * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): mixed
     {
         return $this->json()[$offset];
     }
@@ -279,7 +370,7 @@ class Response implements ArrayAccess
      *
      * @throws \LogicException
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         throw new LogicException('Response data may not be mutated using array access.');
     }
@@ -292,7 +383,7 @@ class Response implements ArrayAccess
      *
      * @throws \LogicException
      */
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         throw new LogicException('Response data may not be mutated using array access.');
     }

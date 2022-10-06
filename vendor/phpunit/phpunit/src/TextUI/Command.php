@@ -20,9 +20,11 @@ use function extension_loaded;
 use function fgets;
 use function file_get_contents;
 use function file_put_contents;
+use function get_class;
 use function getcwd;
 use function ini_get;
 use function ini_set;
+use function is_array;
 use function is_callable;
 use function is_dir;
 use function is_file;
@@ -436,6 +438,7 @@ class Command
             if ($loaderFile) {
                 /**
                  * @noinspection PhpIncludeInspection
+                 *
                  * @psalm-suppress UnresolvableInclude
                  */
                 require $loaderFile;
@@ -497,6 +500,7 @@ class Command
             if ($printerFile) {
                 /**
                  * @noinspection PhpIncludeInspection
+                 *
                  * @psalm-suppress UnresolvableInclude
                  */
                 require $printerFile;
@@ -560,7 +564,20 @@ class Command
         try {
             FileLoader::checkAndLoad($filename);
         } catch (Throwable $t) {
-            $this->exitWithErrorMessage($t->getMessage());
+            if ($t instanceof \PHPUnit\Exception) {
+                $this->exitWithErrorMessage($t->getMessage());
+            }
+
+            $this->exitWithErrorMessage(
+                sprintf(
+                    'Error in bootstrap script: %s:%s%s%s%s',
+                    get_class($t),
+                    PHP_EOL,
+                    $t->getMessage(),
+                    PHP_EOL,
+                    $t->getTraceAsString()
+                )
+            );
         }
     }
 

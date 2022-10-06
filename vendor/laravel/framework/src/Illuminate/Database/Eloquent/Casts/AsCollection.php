@@ -16,10 +16,17 @@ class AsCollection implements Castable
      */
     public static function castUsing(array $arguments)
     {
-        return new class implements CastsAttributes {
+        return new class implements CastsAttributes
+        {
             public function get($model, $key, $value, $attributes)
             {
-                return new Collection(json_decode($attributes[$key], true));
+                if (! isset($attributes[$key])) {
+                    return;
+                }
+
+                $data = json_decode($attributes[$key], true);
+
+                return is_array($data) ? new Collection($data) : null;
             }
 
             public function set($model, $key, $value, $attributes)
